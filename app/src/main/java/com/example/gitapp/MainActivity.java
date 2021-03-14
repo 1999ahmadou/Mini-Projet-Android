@@ -2,10 +2,12 @@ package com.example.gitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     List<GitUser> data=new ArrayList<>();
+    public static final String USER_LOGIN_PARAM="user.login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("error","Il y'a une erreur");
                     }
                 });
+            }
+        });
+        listViewUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String login=data.get(position).login;
+                Log.i("loginn",login);
+                Intent intent=new Intent(getApplicationContext(),RepositoryActivity.class);
+                intent.putExtra(USER_LOGIN_PARAM,login);
+                startActivity(intent);
             }
         });
     }

@@ -1,6 +1,9 @@
 package com.example.gitapp.service;
 
+import com.example.gitapp.model.GitRepos;
 import com.example.gitapp.model.GitUsersResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,4 +19,6 @@ public interface GitRepoServiceAPI {
      */
     @GET("search/users")
     public Call<GitUsersResponse> searchUsers(@Query("q") String query);
+    @GET("users/{u}/repos")
+    public Call<List<GitRepos>> userRepositories(@Path("u") String login);
 }
